@@ -68,3 +68,5 @@ Acelera o provisionamento de ambientes.
 Garante consistência entre diferentes execuções.
 Facilita testes e experimentos em cloud providers.
 Integra conhecimentos técnicos e soft skills para entregar soluções mais ágeis e seguras.
+
+https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server_firewall_rule
