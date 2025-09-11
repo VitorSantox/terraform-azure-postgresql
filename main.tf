@@ -1,0 +1,44 @@
+terraform {
+  required_version = ">= 1.3.0"
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+# Resource Group
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
+}
+
+# PostgreSQL Flexible Server (mínimo possível para teste)
+resource "azurerm_postgresql_flexible_server" "main" {
+  name                          = var.name
+  resource_group_name           = azurerm_resource_group.rg.name
+  location                      = azurerm_resource_group.rg.location
+  administrator_login           = var.administrator_login
+  administrator_password        = var.administrator_password
+  sku_name                      = "B_Standard_B1ms" # Mais barato
+  version                       = "13"
+  storage_mb                    = 32768
+  backup_retention_days         = 7
+  geo_redundant_backup_enabled  = false
+  zone                          = "1"
+  public_network_access_enabled = true
+}
+
+# Regra de firewall para permitir acesso de qualquer serviço do Azure
+resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_azure_services" {
+  count            = var.allow_azure_services ? 1 : 0
+  name             = "allow-azure-services"
+  server_id        = azurerm_postgresql_flexible_server.main.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
