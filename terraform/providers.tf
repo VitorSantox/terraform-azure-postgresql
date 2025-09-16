@@ -9,12 +9,12 @@ terraform {
   }
 
   # Backend remoto (opcional, mas recomendado)
-  backend "azurerm" {
-    resource_group_name  = "rg-terraform-state"
-    storage_account_name = "tfstateaccount"
-    container_name       = "tfstate"
-    key                  = "infra.tfstate"
-  }
+  #backend "azurerm" {
+    #resource_group_name  = "rg-terraform-state"
+    #storage_account_name = "tfstateaccount"
+    #container_name       = "tfstate"
+    #key                  = "infra.tfstate"
+  #}
 }
 
 provider "azurerm" {
