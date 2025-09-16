@@ -1,3 +1,11 @@
-variable "resource_group_name" { type = string }
-variable "location" { type = string }
+variable "resource_group_name" {
+    type = string 
+    description = "Nome do Resource Group"
+    }
+
+variable "location" {
+    type = string 
+    description = "Região do Azure"
+    default = "eastus" 
+    }
 
